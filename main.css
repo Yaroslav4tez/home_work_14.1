@@ -1,0 +1,29 @@
+img {
+    width: auto;
+    height: 400px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    background: linear-gradient(to left, rgb(237, 224, 224), rgb(217, 217, 228), rgb(219, 219, 198));
+}
+
+button {
+    margin-top: 100px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+#prevButton {
+    position: fixed;
+    left: 170px;
+    bottom: 65%;
+}
+
+#nextButton {
+    position: fixed;
+    right: 170px;
+    bottom: 65%;
+}
