@@ -6,10 +6,11 @@
 4. При досягненні останнього зображення - ховати кнопку Next. Аналогічно з першим зображенням і кнопкою Prev
 5. Кількість слайдів може бути будь-якою
 6. Додати можливість навігації через точки під слайдами*/
-
 document.addEventListener('DOMContentLoaded', () => {
-  prevButton.style.display = 'none';
+    const prevButton = document.getElementById('prevButton');
+    prevButton.style.display = 'none';
 });
+
 
 const myArrayFoto = ['Foto/Ancient-History-Roman-Rome-Caligula-Little-Boots.jpg', 
     'Foto/Caligula-2.jpg', 'Foto/Clockwork-Orange-34.webp', 'Foto/Humans-contakt.jpg',
@@ -17,17 +18,11 @@ const myArrayFoto = ['Foto/Ancient-History-Roman-Rome-Caligula-Little-Boots.jpg'
 
 
 
-const prevButton = document.getElementById('prevButton');
 const nextButton = document.getElementById('nextButton');
 
-
-const parentPrev = prevButton.parentNode;
-const parentNext = nextButton.parentNode;
-
-const fotoNaviDot = document.getElementById('fotoNaviDot');
-
-
+const dots = document.querySelectorAll('#dotsNav span');
 const imgSrc = document.querySelector('img');
+
 
 let count = 0;
 
@@ -40,45 +35,43 @@ function imgChange() {
         prevButton.style.display = 'inline';
     }
 
-    if (count >= myArrayFoto.length) {
-        count = 5;
+    if (count >= myArrayFoto.length - 1) {
+        count = myArrayFoto.length - 1;
         nextButton.style.display = 'none';
     } else {
         nextButton.style.display = 'inline';
     }
-
-
-
-    switch (count) {
-        case 0:
-            imgSrc.src = myArrayFoto[0];
-            break;
-        case 1:
-            imgSrc.src = myArrayFoto[1];
-            break;
-        case 2:
-            imgSrc.src = myArrayFoto[2];
-            break;
-        case 3:
-            imgSrc.src = myArrayFoto[3];
-            break;
-        case 4:
-            imgSrc.src = myArrayFoto[4];
-            break;
-        case 5:
-            imgSrc.src = myArrayFoto[5];
-            break;                        
-        default:
-            break;
-    }
+    
+    
+    imgSrc.src = myArrayFoto[count];
+    
 }
+
+
 
 prevButton.addEventListener('click', function () {
     count--;
     imgChange();
+    updateDots();
 });
+
 
 nextButton.addEventListener('click', function () {
     count++;
     imgChange();
+    updateDots();
 });
+
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        count = index;
+        imgChange();
+        updateDots();
+    });
+});
+
+function updateDots() {
+    dots.forEach(dot => dot.classList.remove('dotActive'));
+    dots[count].classList.add('dotActive');
+}
+
